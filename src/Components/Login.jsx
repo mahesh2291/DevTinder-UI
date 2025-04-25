@@ -1,18 +1,28 @@
 import axios from "axios"
-import { useState } from "react"
+import {  useState } from "react"
 import { BASE_URL } from "../Util/Url"
+import { useDispatch } from "react-redux"
+import {addUser} from '../Redux/userSlice'
+import { useNavigate } from "react-router"
 
 const Login=()=>{
     const [emailInput,setEmailInput]=useState('')
     const [passwordInput,setPasswordInput]=useState('')
+    const [error,setError]=useState('')
+    const dispatch=useDispatch()
+    const navigate=useNavigate()
+   
 
     
         const handleLogin=async()=>{
             try {
             const res=await axios.post(BASE_URL+'/login',{email:emailInput,password:passwordInput})
-            console.log(res)
+            dispatch(addUser(res.data))
+            return navigate('/feed')
         } catch (err) {
-            console.log(err.message)
+          console.log(err)
+          document.getElementById('my_modal_4').showModal()
+          setError(err?.response?.data)
         }
        
            }
@@ -68,6 +78,18 @@ const Login=()=>{
     </div>
   </div>
 </div>
+<dialog id="my_modal_4" className="modal">
+  <div className="modal-box w-11/12 max-w-5xl -mt-40">
+    <h3 className="font-bold text-lg">ERROR</h3>
+    <p className="py-4">{error}</p>
+    <div className="modal-action">
+      <form method="dialog">
+        {/* if there is a button, it will close the modal */}
+        <button className="btn">Close</button>
+      </form>
+    </div>
+  </div>
+</dialog>
 </div>
     )
 }
