@@ -6,6 +6,7 @@ import axios from 'axios'
 import { Provider } from 'react-redux'
 import appStore from './Redux/app'
 import Profile from './Components/Profile'
+import Feed from './Components/Feed'
 axios.defaults.withCredentials = true;
 function App() {
  
@@ -17,7 +18,7 @@ function App() {
      <Routes>
       <Route path='/' element={<Body />}>
         <Route path='/login' element={<Login />} />
-        <Route path='/feed' element={<h1>feed</h1>} />
+        <Route path='/feed' element={<Feed />} />
         <Route path='/profile' element={<Profile />} />
        </Route>
      </Routes>
