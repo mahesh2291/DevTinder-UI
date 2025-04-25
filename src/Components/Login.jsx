@@ -6,8 +6,8 @@ import {addUser} from '../Redux/userSlice'
 import { useNavigate } from "react-router"
 
 const Login=()=>{
-    const [emailInput,setEmailInput]=useState('')
-    const [passwordInput,setPasswordInput]=useState('')
+    const [emailInput,setEmailInput]=useState('trump123@gmail.com')
+    const [passwordInput,setPasswordInput]=useState('Trump@123')
     const [error,setError]=useState('')
     const dispatch=useDispatch()
     const navigate=useNavigate()
@@ -79,7 +79,7 @@ const Login=()=>{
   </div>
 </div>
 <dialog id="my_modal_4" className="modal">
-  <div className="modal-box w-11/12 max-w-5xl -mt-40">
+  <div className="modal-box w-5/12 max-w-5xl -mt-40">
     <h3 className="font-bold text-lg">ERROR</h3>
     <p className="py-4">{error}</p>
     <div className="modal-action">

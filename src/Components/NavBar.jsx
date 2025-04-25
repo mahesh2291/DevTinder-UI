@@ -2,17 +2,18 @@ import axios from "axios"
 import { useDispatch, useSelector } from "react-redux"
 import { BASE_URL } from "../Util/Url"
 import { removeUser } from "../Redux/userSlice"
-import { useNavigate } from "react-router"
+import { Link, useNavigate } from "react-router"
 
 
 
 const NavBar=()=>{
   const dispatch=useDispatch()
   const navigator=useNavigate()
+
+  
   const handleLogout=async ()=>{
     try {
-      const res=await axios.post(BASE_URL+'/logout')
-      console.log(res.data)
+      await axios.post(BASE_URL+'/logout')
      dispatch(removeUser())
      return navigator('/login')
     } catch (err) {
@@ -25,7 +26,7 @@ const NavBar=()=>{
     return (
         <div className="navbar bg-base-100 shadow-sm">
         <div className="flex-1">
-          <a className="btn btn-ghost text-xl">DevTinder</a>
+          <Link to={'/'} className="btn btn-ghost text-xl">DevTinder</Link>
         </div>
        {
         user && (
@@ -43,10 +44,10 @@ const NavBar=()=>{
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
               <li>
-                <a className="justify-between">
+                <Link to='/profile' className="justify-between">
                   Profile
                   <span className="badge">New</span>
-                </a>
+                </Link>
               </li>
               <li><a>Settings</a></li>
               <li onClick={()=>handleLogout()}><a>Logout</a></li>
