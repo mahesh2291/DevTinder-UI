@@ -15,6 +15,7 @@ const EditProfile=(props)=>{
      const [gender,setGender]=useState(props.user.gender)
       const [photoUrl,setPhotoUrl]=useState(props.user.photoUrl)
       const [about,setAbout]=useState(props.user.about)
+      const [successToast,setSuccessToast]=useState(false)
 
 
       const saveProfileData=async()=>{
@@ -23,13 +24,17 @@ const EditProfile=(props)=>{
             firstName,lastName,age,gender,photoUrl,about
           })
           dispatch(addUser(res.data))
+          setSuccessToast(true)
+          setTimeout(()=>{
+            setSuccessToast(false)
+          },3000)
         } catch (errr) {
           console.log(err)
         }
       }
 
 
-
+const dropDownIntitalValues=['male','female','other']
 
     return (
       <div className="flex justify-center my-10">
@@ -49,9 +54,21 @@ const EditProfile=(props)=>{
   <legend className="fieldset-legend">Age</legend>
   <input type="text" value={age} onChange={(e)=>setAge(e.target.value)} className="input"  />
 </fieldset>
+
 <fieldset className="fieldset">
   <legend className="fieldset-legend">Gender</legend>
-  <input type="text" value={gender} onChange={(e)=>setGender(e.target.value)} className="input"  />
+  <div className="dropdown dropdown-hover">
+  <div tabIndex={0} role="button" className="btn m-1">{gender}</div>
+  <ul tabIndex={0}  className="dropdown-content menu bg-base-100 rounded-box z-1  p-2 shadow-sm">
+    {
+      dropDownIntitalValues.map((option,index)=>{
+          return <li key={option} onClick={()=>setGender(dropDownIntitalValues[index])}><a>{option}</a></li>
+      })
+    }
+     
+  </ul>
+</div>
+ 
 </fieldset>
 <fieldset className="fieldset">
   <legend className="fieldset-legend">Photo URL</legend>
@@ -59,8 +76,9 @@ const EditProfile=(props)=>{
 </fieldset>
 <fieldset className="fieldset">
   <legend className="fieldset-legend">About</legend>
-  <input type="text" value={about} onChange={(e)=>setAbout(e.target.value)} className="input"  />
+ <textarea value={about} onChange={(e)=>setAbout(e.target.value)} className="textarea"></textarea>
 </fieldset>
+
 <div className="flex justify-center">
 <button onClick={()=>saveProfileData()}  className="btn btn-success w-25">Save</button>
 </div>
@@ -68,8 +86,20 @@ const EditProfile=(props)=>{
       </div>
       </div>
       <div className="border-2 border-amber-500">
+        <h1 className="text-center text-2xl pb-10 pt-10">Profile Preview</h1>
       <UserCard user={{firstName,lastName,age,gender,photoUrl,about}} />
       </div>
+      {
+         successToast && <>
+          <div className="toast toast-top toast-center"> 
+          <div className="alert alert-success">
+          <span>Profile Saved successfully</span>
+          </div>
+</div>
+
+         </>
+      }
+     
       </div>
     )
 }

@@ -26,7 +26,7 @@ const NavBar=()=>{
     return (
         <div className="navbar bg-base-100 shadow-sm">
         <div className="flex-1">
-          <Link to={'/'} className="btn btn-ghost text-xl">DevTinder</Link>
+          <Link to={'/feed'} className="btn btn-ghost text-xl">DevTinder</Link>
         </div>
        {
         user && (
@@ -49,7 +49,7 @@ const NavBar=()=>{
                   <span className="badge">New</span>
                 </Link>
               </li>
-              <li><a>Settings</a></li>
+              <li><Link to={'/connections'}>Connections</Link></li>
               <li onClick={()=>handleLogout()}><a>Logout</a></li>
             </ul>
           </div>
