@@ -12,11 +12,11 @@ const {firstName,lastName,photoUrl,skills,age,about,gender}= user
           <h2 className="card-title">{firstName} {lastName}</h2>
           <p>{age},{gender}</p>
           <p>{about}</p>
-          {
+          {/* {
             skills?.map((skills,index)=>{
                 return <p key={index}>{skill}</p>
             })
-          }
+          } */}
           <div className="card-actions justify-center">
             <button className="btn btn-primary">Ignore</button>
             <button className="btn btn-secondary">Interested</button>

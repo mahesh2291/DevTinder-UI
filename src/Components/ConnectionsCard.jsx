@@ -11,8 +11,8 @@ const ConnectionsCard=({connectionDetails})=>{
     <h2 className="card-title">{firstName} {lastName}</h2>
     <p>{age},{gender}</p>
     {
-        skills?.map((skill)=>{
-          return <p>{skill}</p>
+        skills?.map((skill,index)=>{
+          return <p key={index}>{skill}</p>
         })
     }
     <p>{about}</p>
