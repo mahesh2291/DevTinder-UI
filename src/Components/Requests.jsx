@@ -9,13 +9,20 @@ const Requests=()=>{
 
     const dispatch=useDispatch()
     const requests=useSelector(store=>store.requests)
-    console.log(requests)
-
     const fetchRequest=async()=>{
         try {
          const res=await axios.get(BASE_URL+'/user/requests/received')
          dispatch(addRequests(res.data.requests))
 
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const reviewRequests=(status,_id)=>{
+        try {
+            const res=axios.post(BASE_URL+`/request/review/${status}/${_id}`)
+              fetchRequest()
         } catch (err) {
             console.log(err)
         }
@@ -27,17 +34,16 @@ const Requests=()=>{
     
         if(!requests) return 
     if(requests.length===0) {
-        return <h1>No Connections Found</h1>
+        return <h1 className="text-center">No Connections Found</h1>
     }
 
 
     return (
         <> 
-        <h1 className="text-bold text-2xl text-center">This is connections page</h1>
         {
             requests.map((request)=>{
                 return (
-                      <div key={request._id} className="card card-side w-100 mt-10  border-2 border-b-cyan-300 shadow-sm mx-auto">
+                      <div key={request._id} className="card card-side w-120 mt-10  border-2 border-b-cyan-300 shadow-sm mx-auto">
   <figure>
     <img className="w-50 h-50"
       src={request.fromUserId.photoUrl}
@@ -52,6 +58,10 @@ const Requests=()=>{
         })
     } */}
     <p>{request.fromUserId.about}</p>
+    <div className="flex ">
+    <button className="btn w-30 btn-active btn-primary" onClick={()=>reviewRequests('rejected',request._id)}>Reject</button>
+<button className="btn w-30 ml-5 btn-active btn-secondary" onClick={()=>reviewRequests('accepted',request._id)}>Accept</button>
+</div>
   </div>
 </div>
                 )

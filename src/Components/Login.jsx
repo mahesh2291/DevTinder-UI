@@ -3,7 +3,7 @@ import {  useState } from "react"
 import { BASE_URL } from "../Util/Url"
 import { useDispatch } from "react-redux"
 import {addUser} from '../Redux/userSlice'
-import { useNavigate } from "react-router"
+import { Link, useNavigate } from "react-router"
 
 const Login=()=>{
     const [emailInput,setEmailInput]=useState('trump123@gmail.com')
@@ -74,8 +74,10 @@ const Login=()=>{
    Enter valid password and Email
 </p>
     <div className="card-actions justify-center pt-2">
-      <button onClick={()=>handleLogin()} className="btn btn-primary">Buy Now</button>
+      <button onClick={()=>handleLogin()} className="btn btn-primary">Login</button>
     </div>
+    <p>New to DevTinder? Create a new account <span className="text-red-900"><Link to={'/signup'}>HERE</Link></span></p>
+    
   </div>
 </div>
 <dialog id="my_modal_4" className="modal">
