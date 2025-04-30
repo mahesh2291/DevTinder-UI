@@ -58,7 +58,7 @@ const dropDownIntitalValues=['male','female','other']
 <fieldset className="fieldset">
   <legend className="fieldset-legend">Gender</legend>
   <div className="dropdown dropdown-hover">
-  <div tabIndex={0} role="button" className="btn m-1">{gender}</div>
+  <div tabIndex={0} role="button" className="btn m-1">{gender || 'Gender'}</div>
   <ul tabIndex={0}  className="dropdown-content menu bg-base-100 rounded-box z-1  p-2 shadow-sm">
     {
       dropDownIntitalValues.map((option,index)=>{

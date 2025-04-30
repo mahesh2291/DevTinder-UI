@@ -15,14 +15,14 @@ const Signup=()=>{
     const [gender,setGender]=useState('Select')
 
    const navigate=useNavigate()
-
+    const dispatch=useDispatch()
     const dropDownIntitalValues=['male','female','other']
         
     const handleSignUp=async()=>{
             try {
             const res=await axios.post(BASE_URL+'/signup',{firstName,lastName,email,password,age,about,gender})
-            dispatch(addUser(res.data))
-            return navigate('/login')
+            dispatch(addUser(res.data.data))
+            return navigate('/profile')
         } catch (err) {
           console.log(err)
           document.getElementById('my_modal_4').showModal()
@@ -33,17 +33,17 @@ const Signup=()=>{
     return (
        <>
          <div className="flex justify-center">
-  <div className="card card-border bg-black border-y-green-50 w-120 mt-55 shadow-2xl" >
+  <div className="card card-border bg-black border-y-green-50 w-120 mt-45 shadow-2xl" >
   <div className="card-body">
     <h2 className="card-title">Signup</h2>
     <div className="flex justify-between ">
 <fieldset className="fieldset">
   <legend className="fieldset-legend">FirstName?</legend>
-  <input type="text" value={firstName} onChange={(e)=>setFirstName(e.target.value)} className="input w-50" placeholder="Type here" />
+  <input type="text"  value={firstName} onChange={(e)=>setFirstName(e.target.value)} className="input w-50" placeholder="Type here" />
 </fieldset>
 <fieldset className="fieldset">
   <legend className="fieldset-legend">LastName?</legend>
-  <input type="text" value={lastName} onChange={(e)=>setLastName(e.target.value)} className="input" placeholder="Type here" />
+  <input type="text" value={lastName} onChange={(e)=>setLastName(e.target.value)} className="input w-50" placeholder="Type here" />
 </fieldset>
 </div>
 <div className="flex justify-between">
@@ -62,7 +62,7 @@ const Signup=()=>{
       <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
     </g>
   </svg>
-  <input  type="email" value={email} onChange={(e)=>setEmail(e.target.value)}  placeholder="mail@site.com" required />
+  <input className="input w-38"  type="email" value={email} onChange={(e)=>setEmail(e.target.value)}  placeholder="mail@site.com" required />
 </label>
 </fieldset>
     <fieldset className="fieldset">
@@ -84,7 +84,7 @@ const Signup=()=>{
   </svg>
   <input
  
-  value={password} onChange={(e)=>setPassword(e.target.value)}
+  value={password} className="w-38" onChange={(e)=>setPassword(e.target.value)}
     type="password"
     required
     placeholder="Password"
@@ -98,33 +98,19 @@ const Signup=()=>{
 <div className="flex justify-between">
     <fieldset className="fieldset">
   <legend className="fieldset-legend">Age</legend>
-  <input type="text"value={age} onChange={(e)=>setAge(e.target.value)} className="input" placeholder="Type here" />
+  <input type="text"value={age} onChange={(e)=>setAge(e.target.value)} className="input w-50" placeholder="Type here" />
   
 </fieldset>
-<fieldset className="fieldset">
-  <legend className="fieldset-legend">About</legend>
-  <input type="text" value={about} onChange={(e)=>setAbout(e.target.value)} className="input" placeholder="Type here" />
- 
-</fieldset>
+
 </div>
-<fieldset className="fieldset">
-  <legend className="fieldset-legend">Gender</legend>
-  <div className="dropdown dropdown-hover">
-  <div tabIndex={0} role="button" className="btn m-1">{gender}</div>
-  <ul tabIndex={0}  className="dropdown-content menu bg-base-100 rounded-box z-1  p-2 shadow-sm">
-    {
-      dropDownIntitalValues.map((option,index)=>{
-          return <li key={option} onClick={()=>setGender(dropDownIntitalValues[index])}><a>{option}</a></li>
-      })
-    }
-     
-  </ul>
-</div>
- 
-</fieldset>
+
  <div className="card-actions justify-center pt-2">
-      <button onClick={()=>handleSignUp()} className="btn btn-primary">Signup</button>
+      <button onClick={()=>handleSignUp()} className="btn btn-primary w-full">Signup</button>
     </div>
+    <div className="flex ml-25"><h1 className="mt-2">Already have an Account? </h1>
+    <Link to={'/login'}><button className="btn btn-active btn-accent ml-3">Login</button></Link>
+    </div>
+    
     
   </div>
 </div>
