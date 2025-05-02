@@ -13,6 +13,7 @@ const Signup=()=>{
     const [age,setAge]=useState('')
     const [about,setAbout]=useState('')
     const [gender,setGender]=useState('Select')
+    const [error,setError]=useState('')
 
    const navigate=useNavigate()
     const dispatch=useDispatch()
@@ -24,7 +25,7 @@ const Signup=()=>{
             dispatch(addUser(res.data.data))
             return navigate('/profile')
         } catch (err) {
-          console.log(err)
+          
           document.getElementById('my_modal_4').showModal()
           setError(err?.response?.data)
         }
@@ -103,6 +104,18 @@ const Signup=()=>{
 </fieldset>
 
 </div>
+<dialog id="my_modal_4" className="modal">
+  <div className="modal-box w-5/12 max-w-5xl -mt-40">
+    <h3 className="font-bold text-lg">ERROR</h3>
+    <p className="py-4">{error}</p>
+    <div className="modal-action">
+      <form method="dialog">
+        {/* if there is a button, it will close the modal */}
+        <button className="btn">Close</button>
+      </form>
+    </div>
+  </div>
+</dialog>
 
  <div className="card-actions justify-center pt-2">
       <button onClick={()=>handleSignUp()} className="btn btn-primary w-full">Signup</button>

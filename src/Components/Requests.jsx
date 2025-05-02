@@ -1,30 +1,43 @@
 import axios from "axios"
 import { BASE_URL } from "../Util/Url"
-import { useEffect } from "react"
+import { useEffect,useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { addRequests } from "../Redux/requests"
 import ConnectionsCard from "./ConnectionsCard"
+import { removeRequest } from "../Redux/requests"
 
 const Requests=()=>{
-
+const [error,setError]=useState('')
+const [successToast,setSuccessToast]=useState(false)
+const [toastMessage,setToastMessage]=useState('')
     const dispatch=useDispatch()
     const requests=useSelector(store=>store.requests)
+
     const fetchRequest=async()=>{
         try {
          const res=await axios.get(BASE_URL+'/user/requests/received')
          dispatch(addRequests(res.data.requests))
 
         } catch (err) {
-            console.log(err)
+           document.getElementById('my_modal_4').showModal()
+          setError(err?.response?.data)
         }
     }
 
     const reviewRequests=(status,_id)=>{
         try {
             const res=axios.post(BASE_URL+`/request/review/${status}/${_id}`)
-              fetchRequest()
+              const toastMessage=status==='rejected'? 'Rejected' : 'Accepted '
+              setToastMessage(toastMessage)
+              setSuccessToast(true)
+          setTimeout(()=>{
+            setSuccessToast(false)
+            setToastMessage('')
+          },3000)
+           dispatch(removeRequest(_id))
         } catch (err) {
-            console.log(err)
+            document.getElementById('my_modal_4').showModal()
+          setError(err?.response?.data)
         }
     }
 
@@ -68,6 +81,17 @@ const Requests=()=>{
                 
             })
         }
+   
+{
+         successToast && <>
+          <div className="toast toast-top toast-center"> 
+          <div className="alert alert-success">
+          <span>{toastMessage}</span>
+          </div>
+</div>
+
+         </>
+      }
        </>
     )
 }

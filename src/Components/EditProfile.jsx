@@ -16,6 +16,7 @@ const EditProfile=(props)=>{
       const [photoUrl,setPhotoUrl]=useState(props.user.photoUrl)
       const [about,setAbout]=useState(props.user.about)
       const [successToast,setSuccessToast]=useState(false)
+      const [error,setError]=useState('')
 
 
       const saveProfileData=async()=>{
@@ -29,7 +30,8 @@ const EditProfile=(props)=>{
             setSuccessToast(false)
           },3000)
         } catch (errr) {
-          console.log(err)
+          document.getElementById('my_modal_4').showModal()
+          setError(err?.response?.data)
         }
       }
 

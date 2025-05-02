@@ -20,7 +20,6 @@ const Login=()=>{
             dispatch(addUser(res.data))
             return navigate('/feed')
         } catch (err) {
-          console.log(err)
           document.getElementById('my_modal_4').showModal()
           setError(err?.response?.data)
         }

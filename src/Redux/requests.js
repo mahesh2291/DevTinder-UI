@@ -6,10 +6,14 @@ const requests= createSlice({
     reducers:{
         addRequests:(state,action)=>{
            return action.payload
+        },
+         removeRequest:(state,action)=> {
+            const newFeed=state.filter(user=>user._id!==action.payload)
+            return newFeed
         }
     }
 })
 
 
-export const {addRequests}=requests.actions
+export const {addRequests,removeRequest}=requests.actions
 export default requests.reducer

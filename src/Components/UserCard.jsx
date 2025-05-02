@@ -2,8 +2,10 @@ import axios from "axios"
 import { BASE_URL } from "../Util/Url"
 import { useDispatch } from "react-redux"
 import { removeUserFeed } from "../Redux/feedSlice"
+import {useState } from 'react'
 
 const UserCard=({user})=>{
+  const [successToast,setSuccessToast]=useState(false)
   const dispatch=useDispatch()
   
 const {firstName,lastName,photoUrl,skills,age,about,gender,_id}= user
@@ -11,6 +13,12 @@ const {firstName,lastName,photoUrl,skills,age,about,gender,_id}= user
       const handleSendRequest=async(status,userId)=>{
         try {
           const res=await axios.post(BASE_URL+`/send/request/${status}/${userId}`)
+          setSuccessToast(true)
+          console.log(successToast)
+          setTimeout(()=>{
+            setSuccessToast(false)
+          },3000)
+           console.log(successToast)
          dispatch(removeUserFeed(userId))
         } catch (err) {
           console.log(err)
@@ -40,6 +48,16 @@ const {firstName,lastName,photoUrl,skills,age,about,gender,_id}= user
             <button onClick={()=>handleSendRequest('interested',_id)} className="btn btn-secondary">Interested</button>
           </div>
         </div>
+          {
+         successToast && <>
+          <div className="toast toast-top toast-center"> 
+          <div className="alert alert-success">
+          <span>Profile Saved successfully</span>
+          </div>
+</div>
+
+         </>
+      }
       </div>)
 }
 

@@ -26,7 +26,7 @@ const NavBar=()=>{
     return (
         <div className="navbar bg-base-100 shadow-sm">
         <div className="flex-1">
-          <Link to={'/feed'} className="btn btn-ghost text-xl">DevTinder</Link>
+          <Link to={user? '/feed' : 'login'} className="btn btn-ghost text-xl">DevTinder</Link>
         </div>
        {
         user && (
