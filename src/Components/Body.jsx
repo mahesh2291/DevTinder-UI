@@ -19,6 +19,7 @@ const Body=()=>{
     try {
       const res=await axios.get(BASE_URL+'/profile/view')
       dispatch(addUser(res.data))
+      navigate('/feed')
     } catch (err) {
       if(err.status===401) navigate('/login')
     }
