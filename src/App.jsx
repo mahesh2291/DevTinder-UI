@@ -10,6 +10,7 @@ import Feed from './Components/Feed'
 import Connections from './Components/Connections'
 import Requests from './Components/Requests'
 import Signup from './Components/Signup'
+import Chat from './Components/Chat'
 
 
 axios.defaults.withCredentials = true;
@@ -28,6 +29,7 @@ function App() {
         <Route path='/connections' element={<Connections />} />
         <Route path='/requests' element={<Requests />} />
         <Route path='/signup' element={<Signup />} />
+        <Route path='/chat/:targetUserId' element={<Chat />} />
        </Route>
      </Routes>
     </BrowserRouter>

@@ -1,5 +1,7 @@
+import { Link } from "react-router"
+
 const ConnectionsCard=({connectionDetails})=>{
-   const {firstName,lastName,age,about,gender,skills,photoUrl}=connectionDetails
+   const {firstName,lastName,age,about,gender,skills,photoUrl,_id}=connectionDetails
     return (
         <div className="card card-side w-100 mt-10  border-2 border-b-cyan-300 shadow-sm mx-auto">
   <figure>
@@ -16,6 +18,7 @@ const ConnectionsCard=({connectionDetails})=>{
         })
     }
     <p>{about}</p>
+    <Link to={'/chat/'+_id} ><button className="btn btn-primary">Chat</button></Link>
   </div>
 </div>
 )
