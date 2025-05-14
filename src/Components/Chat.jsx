@@ -21,7 +21,7 @@ const Chat=()=>{
       
 
       const chatMessages=chat?.data?.messages?.map((msg)=>{
-        console.log(msg)
+      
         const {senderId,text,createdAt}=msg
         const date = new Date(createdAt).toLocaleString();
            return {firstName:senderId?.firstName,lastName:senderId?.lastName,text:text,time:date}
@@ -39,7 +39,7 @@ const Chat=()=>{
          socket.emit('joinChat',{firstName,userId,targetUserId})
 
          socket.on("messageReceived",({firstName,lastName,text})=>{
-           console.log(firstName +":" + text )
+          
            const time = new Date().toLocaleString();
   setMessages(messages => [...messages, { firstName, lastName, text, time }]);
          })

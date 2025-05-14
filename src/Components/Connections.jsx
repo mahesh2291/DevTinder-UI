@@ -16,7 +16,7 @@ const Connections=()=>{
             const res=await axios.get(BASE_URL+'/user/connections')
             dispatch(addConnections(res.data))
         } catch (err) {
-            console.log(err.message)
+           
         }
     }
 

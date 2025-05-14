@@ -14,14 +14,14 @@ const {firstName,lastName,photoUrl,skills,age,about,gender,_id}= user
         try {
           const res=await axios.post(BASE_URL+`/send/request/${status}/${userId}`)
           setSuccessToast(true)
-          console.log(successToast)
+         
           setTimeout(()=>{
             setSuccessToast(false)
           },3000)
-           console.log(successToast)
+          
          dispatch(removeUserFeed(userId))
         } catch (err) {
-          console.log(err)
+       
         }
       }
 
