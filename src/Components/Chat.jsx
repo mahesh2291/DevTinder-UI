@@ -3,6 +3,8 @@ import { useParams } from "react-router"
 import createSocketConnection from "../Util/socket"
 import { useSelector } from "react-redux"
 import { Socket } from "socket.io-client"
+import axios from "axios"
+import { BASE_URL } from "../Util/Url"
 
 const Chat=()=>{
     const loggedInUser=useSelector(store=>store.user)
@@ -13,14 +15,33 @@ const Chat=()=>{
      const userId=loggedInUser?._id
      const firstName=loggedInUser?.firstName
 
+     const fetchChatMessages=async()=>{
+      const chat=await axios.get(BASE_URL+`/chat/${targetUserId}`)
+      
+      
+
+      const chatMessages=chat?.data?.messages?.map((msg)=>{
+        console.log(msg)
+        const {senderId,text,createdAt}=msg
+        const date = new Date(createdAt).toLocaleString();
+           return {firstName:senderId?.firstName,lastName:senderId?.lastName,text:text,time:date}
+      })
+          setMessages(chatMessages)
+     }
+
+     useEffect(()=>{
+      fetchChatMessages()
+     },[])
+
      useEffect(()=>{
       if(!userId) return
          const socket=createSocketConnection()
          socket.emit('joinChat',{firstName,userId,targetUserId})
 
-         socket.on("messageReceived",({firstName,text})=>{
+         socket.on("messageReceived",({firstName,lastName,text})=>{
            console.log(firstName +":" + text )
-           setMessages(messages=>[...messages,{firstName,text}])
+           const time = new Date().toLocaleString();
+  setMessages(messages => [...messages, { firstName, lastName, text, time }]);
          })
 
          return ()=>{
@@ -30,7 +51,7 @@ const Chat=()=>{
 
      const sendMessage=()=>{
       const socket=createSocketConnection()
-       socket.emit("sendMessage",{firstName,userId,targetUserId,text:newMessage})
+       socket.emit("sendMessage",{firstName:loggedInUser.firstName,lastName:loggedInUser.lastName,userId,targetUserId,text:newMessage})
        setNewMessage('')
      }
 
@@ -40,10 +61,12 @@ const Chat=()=>{
           <div className="flex-1 overflow-scroll p-5">
             {
                 messages.map((msg,index)=>{
-                    return <div className="chat chat-start">
+                   
+                   
+                    return <div key={index} className={"chat " + (loggedInUser.firstName === msg.firstName? "chat-end" : "chat-start")}>
                     <div className="chat-header">
-                     {msg.firstName}
-                      <time className="text-xs opacity-50">2 hours ago</time>
+                     {msg.firstName} {msg.lastName}
+                      <time className="text-xs opacity-50">{msg.time}</time>
                     </div>
                     <div className="chat-bubble">{msg.text}</div>
                     <div className="chat-footer opacity-50">Seen</div>
