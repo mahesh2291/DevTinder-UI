@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router"
 import createSocketConnection from "../Util/socket"
 import { useSelector } from "react-redux"
-import { Socket } from "socket.io-client"
 import axios from "axios"
 import { BASE_URL } from "../Util/Url"
 
