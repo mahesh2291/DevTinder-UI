@@ -3,7 +3,12 @@ import { BASE_URL } from "./Url";
 
 
 const createSocketConnection=()=>{
-     return io(BASE_URL)
+     if(location.hostname==="localhost") {
+          return io(BASE_URL)
+     } else {
+          return io('/',{path: '/api/socket.io'})
+     }
+    
 }
 
 export default createSocketConnection

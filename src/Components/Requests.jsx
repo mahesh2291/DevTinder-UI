@@ -47,7 +47,7 @@ const [toastMessage,setToastMessage]=useState('')
     
         if(!requests) return 
     if(requests.length===0) {
-        return <h1 className="text-center">No Connections Found</h1>
+        return <h1 className="text-center">No Requests Found</h1>
     }
 
 
