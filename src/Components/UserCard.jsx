@@ -32,7 +32,7 @@ const {firstName,lastName,photoUrl,skills,age,about,gender,_id}= user
         <figure>
           <img
             src={photoUrl}
-            alt="Shoes" />
+            alt="profile" />
         </figure>
         <div className="card-body">
           <h2 className="card-title">{firstName} {lastName}</h2>
